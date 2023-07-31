@@ -2,7 +2,7 @@
 
 ## Link
 
-Link Here
+[Click Here](https://lucygossip.github.io/Kreativstorm-JS/)
 
 ## Assignment Objectives
 

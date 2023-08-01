@@ -8,49 +8,74 @@ function computerPlay() {
 //console.log(computerPlay());
 //function that plays the first round of the game
 
-const userprompt=prompt('Please enter any string value: '); //This variable is required to get an input from the user to start the game
-playerSelection=userprompt.toLowerCase(); // changing user input not be case sentsitive depending on how string is entered
-let PlayRound= (playerSelection, computerPlay)=> {
-    let playerwin= 0
-    let computerwin=0
+//make variables globle to use it on game function
+let playerwin = 0;
+let computerwin = 0;
+let faildprompt = false;
 
+let PlayRound = (playerSelection, computerPlay)=> {
+    // changing user input not be case sentsitive depending on how string is entered
+    playerSelection.toLowerCase();
     if (playerSelection===computerPlay){
         // console.log(`Playerselection: ${playerSelection} and computerPlayState: ${computerPlay} =Draw`);
         return (`Playerselection: ${playerSelection} and computerPlayState: ${computerPlay}= Draw`);
     }
     else if(playerSelection==='rock' && computerPlay==='paper'){
-        let computerwins= computerwin+1;
-        return (`Playerselection: ${playerSelection} and, computerPlay:${computerPlay}= Computerwin`);
+        computerwin++;
+        return (`Playerselection: ${playerSelection} and, computerPlay:${computerPlay} =  Computer win`);
     }
 
     else if(playerSelection==='paper' && computerPlay==='rock'){
-        let playerwins= playerwin+1;
-        return (`Playerselection: ${playerSelection} and, computerPlay:${computerPlay}= Playerwin`);
+        playerwin++;
+        return (`Playerselection: ${playerSelection} and, computerPlay:${computerPlay} =  Player win`);
     }
 
     else if(playerSelection==='paper' && computerPlay==='scissors'){
-        let computerwins= computerwin+1;
-        return(`Playerselection: ${playerSelection} and, computerPlay:${computerPlay}= Computerwin`)
+        computerwin++;
+        return(`Playerselection: ${playerSelection} and, computerPlay:${computerPlay} =  Computer win`)
     }
 
     else if(playerSelection==='scissors' && computerPlay==='paper'){
-       let playerwins= playerwin+1;
-        return(`Playerselection: ${playerSelection} and, computerPlay:${computerPlay}= Playerwin`)
+        playerwin++;
+        return(`Playerselection: ${playerSelection} and, computerPlay:${computerPlay} =  Player win`)
     }
 
     else if(playerSelection==='scissors' && computerPlay==='rock'){
-       addComputerWin();
-       console.log(computerwins)
-        return(`Playerselection: ${playerSelection} and, computerPlay:${computerPlay}= Computerwin`)
+        computerwin++;
+        return(`Playerselection: ${playerSelection} and, computerPlay:${computerPlay} =  Computer win`)
     }
     else if(playerSelection==='rock' && computerPlay==='scissors'){
-        let playerwins= playerwin+1;
-        return(`Playerselection: ${playerSelection} and, computerPlay:${computerPlay} =Playerwin`)
+        playerwin++;
+        return(`Playerselection: ${playerSelection} and, computerPlay:${computerPlay} = Player win`)
     }
     else{
+        faildprompt = true;
         alert('please choose between rock, paper and scissors');
     };
 };
 
-results = PlayRound(playerSelection, computerPlay());
-console.log(results);
+let game = () =>{
+    //loop to count 5 rounds 
+    for(let i = 0;i < 5;i++) {
+       //get input from user and call playround function
+       let result = PlayRound(prompt('Please enter any string value: '),computerPlay());
+       //if no typo the round will count
+       if(!faildprompt){
+        console.log(result);
+        // if it's the last round the score will display
+        if(i === 4){
+         if(playerwin > computerwin){
+             console.log(`the winner is the player score: player ${playerwin} : computer ${computerwin}`);
+         } else {
+             console.log(`ops you lose score: player ${playerwin} : computer ${computerwin}`);
+         }
+        }
+        // if there is typo the count will decrease by 1
+       }else{
+        i--;
+        faildprompt = false;
+       }
+    }
+}
+// call the game function
+game();

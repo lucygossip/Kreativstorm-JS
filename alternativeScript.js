@@ -5,6 +5,7 @@ const ComputerSelect = () =>{
 }
 
 const PlayRoud = (playerSelection, computerSelection)=>{
+    if(!playerSelection){alert(`Don't cancel the game! You have to play it!`); return false;}
     playerSelection = playerSelection.toLocaleLowerCase()
     if(!choices.includes(playerSelection)) {alert("Invalid Input, please, use rock, paper or scissor!"); return false;}
     if(playerSelection == computerSelection) {alert("Draw! Play again!"); return false;}

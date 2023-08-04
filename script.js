@@ -62,7 +62,7 @@ const resetGame = () => {
     game();
 }
 
-alert("Welcome to Rock, Paper, Scissors! To begin the game, please open the console and press ok to continue");
+alert("Welcome to Rock, Paper, Scissors! To begin the game, please press ok to continue");
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

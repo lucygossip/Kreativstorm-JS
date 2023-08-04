@@ -1,36 +1,37 @@
 let rockPaperScissors = ["rock", "paper", "scissors"];
 let playerwin = 0;
 let computerwin = 0;
-
 function computerPlay() {
     return rockPaperScissors[(Math.floor(Math.random() * rockPaperScissors.length))];
 }
 
 let playRound = (playerSelection, computerPlay) => {
-    if (playerSelection === null) {
+    if (playerSelection === null) { // User cancelled the prompt
         return "exit";
     }
     playerSelection = playerSelection.toLowerCase();
-    computerPlay = computerPlay.toLowerCase();
+    console.log(`Player has chosen ${playerSelection} and computer has chosen ${computerPlay}`);
 
     if (playerSelection === computerPlay) {
-        return "Draw";
+        result = "Draw";
     } else if (
         (playerSelection === 'rock' && computerPlay === 'scissors') ||
         (playerSelection === 'scissors' && computerPlay === 'paper') ||
         (playerSelection === 'paper' && computerPlay === 'rock')
     ) {
         playerwin++;
-        return `You Win! ${capitalize(playerSelection)} beats ${capitalize(computerPlay)}`;
+        result = `You Win! ${capitalize(playerSelection)} beats ${capitalize(computerPlay)}`;
     } else if (
         playerSelection === 'rock' || playerSelection === 'paper' || playerSelection === 'scissors'
     ) {
         computerwin++;
-        return `You Lose! ${capitalize(computerPlay)} beats ${capitalize(playerSelection)}`;
+        result = `You Lose! ${capitalize(computerPlay)} beats ${capitalize(playerSelection)}`;
     } else {
         alert('Please choose between rock, paper, and scissors');
         return false;
     }
+    alert(result); // Alerting the result
+    return result;
 };
 
 const game = () => {
@@ -43,7 +44,6 @@ const game = () => {
             alert("It's a draw! Let's replay the round.");
             continue; // Continue to the next iteration without incrementing
         } else if (result) {
-            alert(result);
             console.log(`${result} | Current score: Player - ${playerwin}, Computer - ${computerwin}`);
             i++;
         }
@@ -58,11 +58,14 @@ const game = () => {
 const resetGame = () => {
     playerwin = 0;
     computerwin = 0;
-    alert("The game has been reset. Type game() to play again!");
+    alert("The game has been reset. press ok to play again!")
+    game();
 }
 
-alert("Welcome to Rock, Paper, Scissors! To begin the game, please open the console and type game()");
+alert("Welcome to Rock, Paper, Scissors! To begin the game, please open the console and press ok to continue");
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+game();

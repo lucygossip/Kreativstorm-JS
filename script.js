@@ -1,5 +1,4 @@
 let rockPaperScissors = ["rock", "paper", "scissors"];
-
 let playerwin = 0;
 let computerwin = 0;
 
@@ -8,7 +7,7 @@ function computerPlay() {
 }
 
 let playRound = (playerSelection, computerPlay) => {
-    if (playerSelection === null) { // User cancelled the prompt
+    if (playerSelection === null) {
         return "exit";
     }
     playerSelection = playerSelection.toLowerCase();
@@ -34,24 +33,34 @@ let playRound = (playerSelection, computerPlay) => {
         alert('Please choose between rock, paper, and scissors');
         return false;
     }
-    alert(result); // Alerting the result
+    alert(result);
     return result;
 };
 
 const game = () => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; ) { // Removed incrementation from here
         const result = playRound(prompt('Please enter rock, paper or scissors. (or cancel to quit)'), computerPlay());
         if (result === "exit") {
             alert("Thanks for playing! Hope to see you again.");
-            return; // Exit the game
+            return;
+        } else if (result === "Draw") {
+            alert("It's a draw! Let's replay the round.");
         } else if (result) {
             console.log(`${result} | Current score: Player - ${playerwin}, Computer - ${computerwin}`);
-        } else {
-            i--;
+            i++; // Increment only if the round was not a draw
         }
-        if (playerwin == 3) { alert("You Won the GAME!"); return; }
-        if (computerwin == 3) { alert("You Lost the GAME!"); return; }
+        if (playerwin == 3 || computerwin == 3) {
+            alert(playerwin == 3 ? "You Won the GAME!" : "You Lost the GAME!");
+            resetGame(); // Reset the game
+            return;
+        }
     }
+}
+
+const resetGame = () => {
+    playerwin = 0;
+    computerwin = 0;
+    alert("The game has been reset. Type game() to play again!");
 }
 
 alert("Welcome to Rock, Paper, Scissors! To begin the game, please open the console and type game()");

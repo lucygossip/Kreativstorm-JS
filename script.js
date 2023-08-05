@@ -34,6 +34,7 @@ let playRound = (playerSelection, computerPlay) => {
 };
 
 const game = () => {
+    alert("Welcome to Rock, Paper, Scissors! You will be playing against the computer. To beat the computer, you will need to win the best of 5 rounds. Draws will be replayed. To begin the game, please press ok to continue");
     for (let i = 0; i < 5; ) {
         const result = playRound(prompt('Please enter rock, paper or scissors. (or cancel to quit)'), computerPlay());
         if (result === "exit") {
@@ -62,7 +63,6 @@ const resetGame = () => {
     alert("The game has been reset. To play again, please press ok to continue.");
     game();
 }
-alert("Welcome to Rock, Paper, Scissors! You will be playing against the computer. To beat the computer, you will need to win the best of 5 rounds. Draws will be replayed. To begin the game, please press ok to continue");
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

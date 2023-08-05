@@ -1,15 +1,27 @@
 let rockPaperScissors = ["rock", "paper", "scissors"];
 let playerwin = 0;
 let computerwin = 0;
+
 function computerPlay() {
     return rockPaperScissors[(Math.floor(Math.random() * rockPaperScissors.length))];
+}
+
+function userPlay() {
+    let  userChoice = prompt("Please enter rock, paper or scissors.");
+    userChoice = userChoice.toLowerCase();
+    userChoice = userChoice.trim();
+    if (userChoice != "rock" && userChoice != "paper" && userChoice != "scissors") {
+        alert ("Error - Please check for typos and type only rock, paper or scissors.");
+        return false;
+    } else {
+        return userChoice;
+    }
 }
 
 let playRound = (playerSelection, computerPlay) => {
     if (playerSelection === null) { // User cancelled the prompt
         return "exit";
     }
-    playerSelection = playerSelection.toLowerCase();
     console.log(`Player has chosen ${playerSelection} and computer has chosen ${computerPlay}`);
 
     if (playerSelection === computerPlay) {
@@ -26,19 +38,15 @@ let playRound = (playerSelection, computerPlay) => {
     ) {
         computerwin++;
         result = `You Lose! ${capitalize(computerPlay)} beats ${capitalize(playerSelection)}`;
-    } else {
-        alert('Error: Please choose between rock, paper, and scissors');
-        return false;
     }
     return result;
 };
 
 const game = () => {
     for (let i = 0; i < 5; ) {
-        const result = playRound(prompt('Please enter rock, paper or scissors. (or cancel to quit)'), computerPlay());
+        const result = playRound(userPlay(), computerPlay());
         if (result === "exit") {
             alert("Thanks for playing! Hope to see you again.");
-            resetGame();
             return;
         } else if (result === "Draw") {
             alert("It's a draw! Let's replay the round.");
@@ -50,7 +58,6 @@ const game = () => {
         }
         if (playerwin == 3 || computerwin == 3) {
             alert(playerwin == 3 ? "You Won the GAME!" : "You Lost the GAME!");
-            resetGame();
             return;
         }
     }

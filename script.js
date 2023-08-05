@@ -1,15 +1,27 @@
 let rockPaperScissors = ["rock", "paper", "scissors"];
 let playerwin = 0;
 let computerwin = 0;
+
 function computerPlay() {
     return rockPaperScissors[(Math.floor(Math.random() * rockPaperScissors.length))];
+}
+
+function userPlay() {
+    let playerChoice = prompt("Please enter rock, paper or scissors (or cancel to quit)");
+    playerChoice = playerChoice.toLowerCase();
+    playerChoice = playerChoice.trim();
+    if(playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissors") {
+        alert('Error: Please choose between rock, paper, and scissors');
+        return false;
+    } else {
+        return playerChoice;
+    }
 }
 
 let playRound = (playerSelection, computerPlay) => {
     if (playerSelection === null) { // User cancelled the prompt
         return "exit";
     }
-    playerSelection = playerSelection.toLowerCase();
     console.log(`Player has chosen ${playerSelection} and computer has chosen ${computerPlay}`);
 
     if (playerSelection === computerPlay) {
@@ -26,9 +38,6 @@ let playRound = (playerSelection, computerPlay) => {
     ) {
         computerwin++;
         result = `You Lose! ${capitalize(computerPlay)} beats ${capitalize(playerSelection)}`;
-    } else {
-        alert('Error: Please choose between rock, paper, and scissors');
-        return false;
     }
     return result;
 };
@@ -36,10 +45,9 @@ let playRound = (playerSelection, computerPlay) => {
 const game = () => {
     alert("Welcome to Rock, Paper, Scissors! You will be playing against the computer. To beat the computer, you will need to win the best of 5 rounds. Draws will be replayed. To begin the game, please press ok to continue");
     for (let i = 0; i < 5; ) {
-        const result = playRound(prompt('Please enter rock, paper or scissors. (or cancel to quit)'), computerPlay());
+        const result = playRound(userPlay(), computerPlay());
         if (result === "exit") {
-            alert("Thanks for playing! Hope to see you again.");
-            resetGame();
+            alert("Thanks for playing! Hope to see you again. If you would like to play again, please type game() into the console.");
             return;
         } else if (result === "Draw") {
             alert("It's a draw! Let's replay the round.");
@@ -51,17 +59,16 @@ const game = () => {
         }
         if (playerwin == 3 || computerwin == 3) {
             alert(playerwin == 3 ? "You Won the GAME!" : "You Lost the GAME!");
-            resetGame();
             return;
         }
     }
 }
 
 const resetGame = () => {
-    playerwin = 0;
-    computerwin = 0;
-    alert("The game has been reset. To play again, please press ok to continue.");
-    game();
+        playerwin = 0;
+        computerwin = 0;
+        alert("The game has been reset. To play again, please press ok to continue.");
+        game()
 }
 
 function capitalize(string) {
